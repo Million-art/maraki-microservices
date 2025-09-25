@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "compilerOptions": {
+    "deleteOutDir": true
+  },
+  "defaultProject": "admin-service",
+  "projects": {
+    "admin-service": {
+      "type": "application",
+      "root": "microservices/admin-service",
+      "entryFile": "main",
+      "sourceRoot": "microservices/admin-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "microservices/admin-service/tsconfig.json"
+            }
+    },
+    "auth-service": {
+      "type": "application",
+      "root": "microservices/auth-service",
+      "entryFile": "main",
+      "sourceRoot": "microservices/auth-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "microservices/auth-service/tsconfig.json"
+      }
+    },
+    "mini-app-service": {
+      "type": "application",
+      "root": "microservices/mini-app-service",
+      "entryFile": "main",
+      "sourceRoot": "microservices/mini-app-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "microservices/mini-app-service/tsconfig.json"
+      }
+    }
+  }
+}
