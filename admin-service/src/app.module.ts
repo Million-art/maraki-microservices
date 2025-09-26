@@ -12,6 +12,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { SharedModule } from './shared/shared.module';
 import { AllExceptionsFilter } from './shared/exceptions/all.exception';
 import { LoggerService } from './shared/logs/logger.service';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+
 
 @Module({
   imports: [
@@ -54,6 +56,16 @@ import { LoggerService } from './shared/logs/logger.service';
     InfrastructureModule,
     ApplicationModule,
     PresentationModule,
+    ClientsModule.register([
+      {
+        name: 'NATS_SERVICE',
+        transport: Transport.NATS,
+        options: {
+          servers: ['nats://localhost:4222'],
+          queue: 'admin_queue',
+        },
+      },
+    ]),
   ],
   providers: [
     {
