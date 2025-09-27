@@ -6,4 +6,5 @@ export abstract class UserRepository{
     abstract findByInviteToken(token: string): Promise<UserEntity | null>
     abstract updatePassword(id: string, passwordHash: string): Promise<void>
     abstract updateInviteToken(id: string, token: string, expiry: Date): Promise<void>
+    abstract clearInviteToken(id:string): Promise <void>
 }

@@ -50,9 +50,15 @@ export class UserRepositoryImpl implements UserRepository {
 
   async updatePassword(id: string, passwordHash: string): Promise<void> {
     await this.userModelRepository.update(id, { passwordHash });
+    await this.clearInviteToken(id)
   }
 
   async updateInviteToken(id: string, token: string, expiry: Date): Promise<void> {
     await this.userModelRepository.update(id, { inviteToken: token, tokenExpiry: expiry });
   }
+
+ async clearInviteToken(id: string): Promise<void> {
+  await this.userModelRepository.update(id, { inviteToken: null as any, tokenExpiry: null as any });
+}
+
 }
