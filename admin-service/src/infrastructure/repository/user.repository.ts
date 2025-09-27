@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepository } from '../../domain/port/user.repository';
+import { UserRepository } from '../../domain/ports/user.repository';
 import { UserModel } from '../models/user.model';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../../domain/entities/user.entity';
