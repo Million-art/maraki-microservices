@@ -6,6 +6,9 @@ import * as Joi from 'joi';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { JwtModule } from '@nestjs/jwt';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './shared/exceptions/all.exception';
+import { LoggerService } from './shared/logs/logger.service';
 import { DomainModule } from './domain/domain.module';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { ApplicationModule } from './application/application.module';
@@ -71,7 +74,13 @@ import { PresentationModule } from './presentation/presentation.module';
     DomainModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+    LoggerService,
+  ],
 })
 export class AppModule implements OnApplicationBootstrap {
   constructor(private readonly dataSource: DataSource) {}

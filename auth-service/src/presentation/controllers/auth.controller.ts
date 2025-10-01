@@ -1,5 +1,5 @@
 import { Controller, Post, Body, UseGuards, HttpCode, HttpStatus } from '@nestjs/common';
-import { ThrottlerGuard, Throttle } from '@nestjs/throttler';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { SetPasswordUseCase } from '../../application/use-cases/set-password.usecase';
 import { LoginUseCase } from '../../application/use-cases/login-user.usecase';
 import { ResendInviteUseCase } from '../../application/use-cases/resend-password.usecase';

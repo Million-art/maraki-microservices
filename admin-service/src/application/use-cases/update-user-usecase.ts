@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { UserRepository } from '../../domain/ports/user.repository';
 import { UpdateUserRequest } from '../interfaces/update-user.interface';
@@ -10,7 +10,7 @@ export class UpdateUserUseCase {
   async execute(request: UpdateUserRequest): Promise<UserEntity> {
     const existingUser = await this.userRepository.findById(request.id);
     if (!existingUser) {
-      throw new Error('User not found');
+      throw new NotFoundException('User not found');
     }
 
     let updatedUser = existingUser;

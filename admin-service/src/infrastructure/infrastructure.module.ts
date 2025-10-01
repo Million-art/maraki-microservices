@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModel } from './models/user.model';
 import { UserRepository } from '../domain/ports/user.repository';
 import { UserRepositoryImpl } from './repository/user.repository';
+import { JetStreamProvider } from './nats/jetstream.provider';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserModel])],
@@ -11,7 +12,8 @@ import { UserRepositoryImpl } from './repository/user.repository';
       provide: UserRepository,
       useClass: UserRepositoryImpl,
     },
+    JetStreamProvider
   ],
-  exports: [UserRepository],
+  exports: [UserRepository, JetStreamProvider],
 })
 export class InfrastructureModule {}

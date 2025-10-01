@@ -4,6 +4,7 @@ import { UserModel } from './models/user.model';
 import { UserRepositoryImpl } from './repository/user.repository';
 import { UserRepository } from '../domain/port/user.repository';
 import { EmailService } from './services/email.service';
+import { JetStreamProvider } from './nats/jetstream.provider';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserModel])],
@@ -13,7 +14,8 @@ import { EmailService } from './services/email.service';
       useClass: UserRepositoryImpl,
     },
     EmailService,
+    JetStreamProvider
   ],
-  exports: [UserRepository, TypeOrmModule, EmailService],
+  exports: [UserRepository, TypeOrmModule, EmailService, JetStreamProvider],
 })
 export class InfrastructureModule {}
