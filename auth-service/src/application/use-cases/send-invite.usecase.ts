@@ -16,7 +16,7 @@ export class SendInviteUseCase {
       this.loggerService.log(`Sending invite email to ${request.email}`, 'SendInviteUseCase');
 
       const token = this.generateToken();
-      const inviteLink = `http://localhost:3001/auth/set-password?token=${token}`;
+      const inviteLink = `${process.env.INVITE_URL}/auth/set-password?token=${token}`;
 
       await this.emailService.sendInviteEmail({
         to: request.email,

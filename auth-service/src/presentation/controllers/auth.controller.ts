@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Query, UseGuards, HttpCode, HttpStatus } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { SetPasswordUseCase } from '../../application/use-cases/set-password.usecase';
 import { LoginUseCase } from '../../application/use-cases/login-user.usecase';
@@ -19,8 +19,8 @@ export class AuthController {
 
   @Post('set-password')
   @HttpCode(HttpStatus.OK)
-  async setPassword(@Body() dto: SetPasswordDto): Promise<{ message: string }> {
-    const request = AuthMapper.toSetPasswordRequest(dto);
+  async setPassword(@Body() dto: SetPasswordDto, @Query('token') token: string): Promise<{ message: string }> {
+    const request = AuthMapper.toSetPasswordRequest(dto, token);
     await this.setPasswordUseCase.execute(request);
     return { message: 'Password set successfully' };
   }

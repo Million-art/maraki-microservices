@@ -22,7 +22,7 @@ export class ResendInviteUseCase {
     const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
     const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
     await this.userRepository.updateInviteToken(user.id, token, expiry);
-    const inviteLink = `http://localhost:3001/auth/set-password?token=${token}`;
+    const inviteLink = `${process.env.Invite_Url}/auth/set-password?token=${token}`;
     await this.emailService.sendInviteEmail({ to: request.email, inviteLink, expiryHours: 24 });
     this.loggerService.log(`Invite resent to ${request.email}`, 'ResendInviteUseCase');
   }

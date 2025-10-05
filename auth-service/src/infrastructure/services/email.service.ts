@@ -22,7 +22,7 @@ export class EmailService {
     expiryHours?: number;
   }) {
     const mailOptions = {
-      from: process.env.RESEND_FROM_EMAIL || 'noreply@ymarakiai.com',
+      from: process.env.RESEND_FROM_EMAIL || 'noreply@marakiai.com',
       to,
       subject: 'Welcome to Maraki - Set Your Password',
       html: `
@@ -51,6 +51,12 @@ export class EmailService {
       console.log('Using from email:', mailOptions.from);
 
       const result = await this.resend.emails.send(mailOptions);
+      console.log('Resend API response:', result);
+
+      if (result.error) {
+        throw new Error(`Resend API error: ${result.error.message}`);
+      }
+
       console.log('Invite email sent successfully:', result);
       return result;
     } catch (error) {
@@ -76,7 +82,7 @@ export class EmailService {
     expiryHours?: number;
   }) {
     const mailOptions = {
-      from: process.env.RESEND_FROM_EMAIL || 'noreply@ymarakiai.com',
+      from: process.env.RESEND_FROM_EMAIL || 'noreply@marakiai.com',
       to,
       subject: 'Reset Your Maraki Password',
       html: `
@@ -106,6 +112,12 @@ export class EmailService {
       console.log('Using from email:', mailOptions.from);
 
       const result = await this.resend.emails.send(mailOptions);
+      console.log('Resend API response:', result);
+
+      if (result.error) {
+        throw new Error(`Resend API error: ${result.error.message}`);
+      }
+
       console.log('Password reset email sent successfully:', result);
       return result;
     } catch (error) {

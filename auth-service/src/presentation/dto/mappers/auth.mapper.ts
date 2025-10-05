@@ -7,9 +7,9 @@ import { ResendInviteRequest } from '../../../application/interfaces/resend-invi
 import { UserEntity } from '../../../domain/entities/user.entity';
 
 export class AuthMapper {
-  static toSetPasswordRequest(dto: SetPasswordDto): SetPasswordRequest {
+  static toSetPasswordRequest(dto: SetPasswordDto, token: string): SetPasswordRequest {
     return {
-      token: dto.token,
+      token,
       password: dto.password,
     };
   }
