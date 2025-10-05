@@ -3,7 +3,7 @@ import { UserRepository } from '../../domain/port/user.repository';
 import { LoginRequest } from '../interfaces/login.interface';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { LoggerService } from 'src/shared/logs/logger.service';
+import { LoggerService } from '../../shared/logs/logger.service';
 
 @Injectable()
 export class LoginUseCase {

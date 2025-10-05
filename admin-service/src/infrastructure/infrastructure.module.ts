@@ -12,7 +12,8 @@ import { JetStreamProvider } from './nats/jetstream.provider';
       provide: UserRepository,
       useClass: UserRepositoryImpl,
     },
-    JetStreamProvider
+    JetStreamProvider,
+    
   ],
   exports: [UserRepository, JetStreamProvider],
 })

@@ -3,7 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from '../../domain/port/user.repository';
 import { EmailService } from '../../infrastructure/services/email.service';
 import { ResendInviteRequest } from '../interfaces/resend-invite.interface';
-import { LoggerService } from 'src/shared/logs/logger.service';
+import { LoggerService } from '../../shared/logs/logger.service';
 
 @Injectable()
 export class ResendInviteUseCase {
@@ -22,7 +22,8 @@ export class ResendInviteUseCase {
     const token = Math.random().toString(36).substring(2) + Date.now().toString(36);
     const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
     await this.userRepository.updateInviteToken(user.id, token, expiry);
-    await this.emailService.sendInviteEmail(request.email, token);
+    const inviteLink = `http://localhost:3001/auth/set-password?token=${token}`;
+    await this.emailService.sendInviteEmail({ to: request.email, inviteLink, expiryHours: 24 });
     this.loggerService.log(`Invite resent to ${request.email}`, 'ResendInviteUseCase');
   }
 }

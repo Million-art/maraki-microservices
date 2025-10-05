@@ -7,7 +7,7 @@ import {
   StringCodec,
   StorageType,
   AckPolicy,
-  RetentionPolicy
+  RetentionPolicy,
 } from "nats";
 
 @Injectable()
@@ -38,13 +38,14 @@ export class JetStreamProvider implements OnModuleInit, OnModuleDestroy {
     try {
       // Check if stream exists
       await this.jsm.streams.info(name);
-    } catch {
+    } catch (err) {
+      console.log(`[JetStreamProvider] Stream ${name} not found, creating...`);
       // If not, create it
       await this.jsm.streams.add({
         name,
         subjects,
-        storage: "file" as StorageType,   
-        retention: "limits" as RetentionPolicy,
+        storage: StorageType.File,   // Use enum directly
+        retention: RetentionPolicy.Limits,  // Use enum directly
       });
       console.log(`✅ Stream ${name} created`);
     }
@@ -53,17 +54,18 @@ export class JetStreamProvider implements OnModuleInit, OnModuleDestroy {
   private async ensureConsumer(
     stream: string,
     durable: string,
-    filter: string
+    filter: string,
   ) {
     try {
       // Check if consumer exists
       await this.jsm.consumers.info(stream, durable);
-    } catch {
+    } catch (err) {
+      console.log(`[JetStreamProvider] Consumer ${durable} not found, creating...`);
       // If not, create it
       await this.jsm.consumers.add(stream, {
         durable_name: durable,
         filter_subject: filter,
-        ack_policy: AckPolicy.Explicit, // use proper enum type
+        ack_policy: AckPolicy.Explicit,
       });
       console.log(`✅ Consumer ${durable} created for ${stream}.${filter}`);
     }
@@ -73,8 +75,16 @@ export class JetStreamProvider implements OnModuleInit, OnModuleDestroy {
     return this.js;
   }
 
-  getCodec(): ReturnType<typeof StringCodec> {
+  getJetStreamManager(): JetStreamManager {
+    return this.jsm;
+  }
+
+  getCodec() {
     return this.sc;
+  }
+
+  getConnection(): NatsConnection {
+    return this.nc;
   }
 
   async onModuleDestroy() {

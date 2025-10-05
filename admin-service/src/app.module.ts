@@ -56,16 +56,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     InfrastructureModule,
     ApplicationModule,
     PresentationModule,
-    ClientsModule.register([
-      {
-        name: 'NATS_SERVICE',
-        transport: Transport.NATS,
-        options: {
-          servers: ['nats://localhost:4222'],
-          queue: 'admin_queue',
-        },
-      },
-    ]),
+
   ],
   providers: [
     {

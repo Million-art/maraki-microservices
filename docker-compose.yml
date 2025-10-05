@@ -1,0 +1,36 @@
+
+services:
+  admin-service:
+    build: ./admin-service
+    ports:
+      - 3000:3000
+    volumes:
+      - ./admin-service/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3000
+  auth-microservice:
+    build: ./auth-service
+    ports:
+      - 3001:3001
+    volumes:
+      - ./auth-service/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3001
+
+  mini-app-service:
+    build: ./mini-app-service
+    ports:
+      - 3002:3002
+    volumes:
+      - ./mini-app-service/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3002
+  nats:
+    image: nats:latest
+    command: -js
+    ports:
+      - 4222:4222
+      - 8222:8222

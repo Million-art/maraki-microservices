@@ -2,7 +2,7 @@ import { Injectable, BadRequestException, NotFoundException } from '@nestjs/comm
 import { UserRepository } from '../../domain/port/user.repository';
 import { SetPasswordRequest } from '../interfaces/set-password.interface';
 import * as bcrypt from 'bcrypt';
-import { LoggerService } from 'src/shared/logs/logger.service';
+import { LoggerService } from '../../shared/logs/logger.service';
 
 @Injectable()
 export class SetPasswordUseCase {

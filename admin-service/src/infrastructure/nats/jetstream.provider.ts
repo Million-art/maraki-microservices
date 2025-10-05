@@ -27,6 +27,7 @@ export class JetStreamProvider implements OnModuleInit, OnModuleDestroy {
     // Ensure streams exist
     await this.ensureStream('QUIZZES', ['quiz.*']);
     await this.ensureStream('MATERIALS', ['material.*']);
+    await this.ensureStream('USERS', ['user.*']);
   }
 
   private async ensureStream(name: string, subjects: string[]) {
@@ -51,6 +52,10 @@ export class JetStreamProvider implements OnModuleInit, OnModuleDestroy {
 
   getCodec() {
     return this.sc;
+  }
+
+  getConnection(): NatsConnection {
+    return this.nc;
   }
 
   async onModuleDestroy() {

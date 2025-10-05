@@ -46,7 +46,7 @@ export class UserRepositoryImpl implements UserRepository {
 
   async findByEmail(email: string): Promise<UserEntity | null> {
     const ormUser = await this.userRepository.findOne({
-      where: { email, isActive: true },
+      where: { email },
     });
     if (!ormUser) return null;
     return new UserEntity(
