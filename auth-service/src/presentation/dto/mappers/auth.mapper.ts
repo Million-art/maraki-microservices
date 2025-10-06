@@ -3,7 +3,7 @@ import { LoginDto } from '../login.dto';
 import { ResendInviteDto } from '../resend-invite.dto';
 import { SetPasswordRequest } from '../../../application/interfaces/set-password.interface';
 import { LoginRequest } from '../../../application/interfaces/login.interface';
-import { ResendInviteRequest } from '../../../application/interfaces/resend-invite.interface';
+import { userRequest } from '../../../application/interfaces/user-request.interface';
 import { UserEntity } from '../../../domain/entities/user.entity';
 
 export class AuthMapper {
@@ -21,7 +21,7 @@ export class AuthMapper {
     };
   }
 
-  static toResendInviteRequest(dto: ResendInviteDto): ResendInviteRequest {
+  static toEmail(dto: ResendInviteDto): userRequest {
     return {
       email: dto.email,
     };

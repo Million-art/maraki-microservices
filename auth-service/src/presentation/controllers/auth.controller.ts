@@ -2,11 +2,11 @@ import { Controller, Post, Body, Query, UseGuards, HttpCode, HttpStatus } from '
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { SetPasswordUseCase } from '../../application/use-cases/set-password.usecase';
 import { LoginUseCase } from '../../application/use-cases/login-user.usecase';
-import { ResendInviteUseCase } from '../../application/use-cases/resend-password.usecase';
-import { SetPasswordDto } from '../dto/set-password.dto';
+ import { SetPasswordDto } from '../dto/set-password.dto';
 import { LoginDto } from '../dto/login.dto';
 import { ResendInviteDto } from '../dto/resend-invite.dto';
 import { AuthMapper } from '../dto/mappers/auth.mapper';
+import { UserRegistrationUseCase } from '../../application/use-cases/process-registration.usecase';
 
 @Controller('auth')
 @UseGuards(ThrottlerGuard)
@@ -14,7 +14,7 @@ export class AuthController {
   constructor(
     private readonly setPasswordUseCase: SetPasswordUseCase,
     private readonly loginUseCase: LoginUseCase,
-    private readonly resendInviteUseCase: ResendInviteUseCase,
+    private readonly resendInviteUseCase: UserRegistrationUseCase,
   ) {}
 
   @Post('set-password')
@@ -36,7 +36,7 @@ export class AuthController {
   @Post('resend-invite')
   @HttpCode(HttpStatus.OK)
   async resendInvite(@Body() dto: ResendInviteDto): Promise<{ message: string }> {
-    const request = AuthMapper.toResendInviteRequest(dto);
+    const request = AuthMapper.toEmail(dto);
     await this.resendInviteUseCase.execute(request);
     return { message: 'Invite resent successfully' };
   }

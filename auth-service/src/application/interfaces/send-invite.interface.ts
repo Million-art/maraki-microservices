@@ -1,4 +1,5 @@
 export interface SendInviteRequest {
+  id: string;
   email: string;
 }
 
