@@ -11,7 +11,6 @@ import { AllExceptionsFilter } from './shared/exceptions/all.exception';
 import { LoggerService } from './shared/logs/logger.service';
 import { ProxyModule } from './modules/proxy.module';
 import { ControllersModule } from './controllers/controllers.module';
-import { RootModule } from './controllers/root.module';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({

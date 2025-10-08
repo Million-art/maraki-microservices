@@ -23,7 +23,6 @@ async function bootstrap() {
     .setTitle('Maraki API Gateway')
     .setDescription('')
     .setVersion('1.0')
-    .addTag('auth', 'Authentication endpoints')
     .addTag('mini-app', 'Mini-app endpoints')
     .addBearerAuth()
     .build();
@@ -57,6 +56,6 @@ async function bootstrap() {
   });
 
   await app.listen(PORT);
-  console.log(`🚀 API Gateway running on http://localhost:${PORT}`);
+  console.log(` API Gateway running on http://localhost:${PORT}`);
 }
 bootstrap();

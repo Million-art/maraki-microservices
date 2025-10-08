@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { JwtModule } from '@nestjs/jwt';
 import { HealthController } from './health.controller';
-import { AuthController } from './auth.controller';
 import { MiniAppController } from './mini-app.controller';
 import { PrometheusController } from './prometheus.controller';
 import { SwaggerController } from './swagger.controller';
@@ -15,7 +14,6 @@ import { AdminController } from './admin.controller';
   controllers: [
     HealthController,
     AdminController,
-    AuthController,
     MiniAppController,
     PrometheusController,
     SwaggerController,
