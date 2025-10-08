@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
+import { PresentationModule } from './presentation/presentation.module';
 
 @Module({
-    imports: [],
-    providers:[AppService]
+    imports: [PresentationModule],
+    providers: []
 })
 export class AppModule {}
