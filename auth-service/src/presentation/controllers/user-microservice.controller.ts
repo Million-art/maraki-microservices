@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SendInviteUseCase } from '../../application/use-cases/send-invite.usecase';
 import { LoggerService } from '../../shared/logs/logger.service';
-import type { SendInviteRequest } from '../../application/interfaces/send-invite.interface';
+import type { IncomingRequest } from '../../application/interfaces/user.interface';
 import { UserRegistrationUseCase } from '../../application/use-cases/process-registration.usecase';
 
 @Controller()
@@ -14,7 +14,7 @@ export class UserMicroserviceController {
   ) {}
 
   @MessagePattern('auth.createUser')
-  async handleCreateUser(@Payload() data: SendInviteRequest) {
+  async handleCreateUser(@Payload() data: IncomingRequest) {
     this.loggerService.log(`📩 Received auth.createUser message for email: ${data.email}`, 'UserMicroserviceController');
 
     const res = await this.userRegistrationUseCase.execute(data)

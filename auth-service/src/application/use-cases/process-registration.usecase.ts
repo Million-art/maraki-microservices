@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { UserRepository } from "../../domain/port/user.repository";
 import { EmailService } from "../../infrastructure/services/email.service";
 import { LoggerService } from "../../shared/logs/logger.service";
-import { userRequest } from "../interfaces/user-request.interface";
+import { IncomingRequest } from "../interfaces/user.interface";
 import { UserEntity } from "../../domain/entities/user.entity";
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UserRegistrationUseCase {
     private readonly loggerService: LoggerService,
   ) {}
 
-  async execute(request: userRequest): Promise<void> {
+  async execute(request: IncomingRequest): Promise<void> {
     let user = await this.userRepository.findByEmail(request.email);
 
     if (!user) {

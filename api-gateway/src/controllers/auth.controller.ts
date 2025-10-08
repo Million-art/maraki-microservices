@@ -19,7 +19,6 @@ export class AuthController {
   private async proxyRequest(req: Request, res: Response) {
     const authServiceUrl = this.configService.get<string>('AUTH_SERVICE_URL');
     const targetUrl = `${authServiceUrl}${req.url}`;
-
  try {
     const response: AxiosResponse = await firstValueFrom(
       this.httpService.request({
@@ -29,8 +28,7 @@ export class AuthController {
         headers: req.headers,
       }),
     );
-
-    res.status(response.status).send(response.data);
+     res.status(response.status).send(response.data);
   } catch (error: any) {
     this.logger.error('Proxy error', error.message);
     throw new BadGatewayException(error.response?.data || 'Proxy error');
@@ -46,23 +44,7 @@ export class AuthController {
     await this.proxyRequest(req, res);
   }
 
-  @Post('login')
-  @ApiOperation({ summary: 'Login user' })
-  @ApiResponse({ status: 200, description: 'Login successful, returns token' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        email: { type: 'string', example: 'user@example.com' },
-        password: { type: 'string', example: 'password123' },
-      },
-      required: ['email', 'password'],
-    },
-  })
-  async login(@Req() req: Request, @Res() res: Response) {
-    await this.proxyRequest(req, res);
-  }
+
 
   @Post('resend-invite')
   @ApiOperation({ summary: 'Resend invite' })

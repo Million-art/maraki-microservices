@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { EmailService } from '../../infrastructure/services/email.service';
 import { LoggerService } from '../../shared/logs/logger.service';
 import { randomBytes } from 'crypto';
-import { SendInviteRequest, SendInviteResponse } from '../interfaces/send-invite.interface';
+import { IncomingRequest, SendInviteResponse } from '../interfaces/user.interface';
 
 @Injectable()
 export class SendInviteUseCase {
@@ -11,7 +11,7 @@ export class SendInviteUseCase {
     private readonly loggerService: LoggerService,
   ) {}
 
-  async execute(request: SendInviteRequest): Promise<SendInviteResponse> {
+  async execute(request: IncomingRequest): Promise<SendInviteResponse> {
     try {
       this.loggerService.log(`Sending invite email to ${request.email}`, 'SendInviteUseCase');
 

@@ -3,8 +3,8 @@ import { LoginDto } from '../login.dto';
 import { ResendInviteDto } from '../resend-invite.dto';
 import { SetPasswordRequest } from '../../../application/interfaces/set-password.interface';
 import { LoginRequest } from '../../../application/interfaces/login.interface';
+ import { UserEntity } from '../../../domain/entities/user.entity';
 import { userRequest } from '../../../application/interfaces/user-request.interface';
-import { UserEntity } from '../../../domain/entities/user.entity';
 
 export class AuthMapper {
   static toSetPasswordRequest(dto: SetPasswordDto, token: string): SetPasswordRequest {
