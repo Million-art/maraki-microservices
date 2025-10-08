@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { Request, Response } from 'express';
  
 async function bootstrap() {
  
@@ -24,12 +25,21 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('auth', 'Authentication endpoints')
     .addTag('mini-app', 'Mini-app endpoints')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
 
   // Global prefix
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api', { exclude: ['/', '/docs'] });
+
+  // Root response middleware
+  app.use((req:Request, res:Response, next:any) => {
+    if (req.path === '/' && req.method === 'GET') {
+      return res.send('Welcome to API Gateway');
+    }
+    next();
+  });
 
   // Validation pipe
   app.useGlobalPipes(

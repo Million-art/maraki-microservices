@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
+import { JwtModule } from '@nestjs/jwt';
 import { HealthController } from './health.controller';
 import { AuthController } from './auth.controller';
 import { MiniAppController } from './mini-app.controller';
@@ -10,7 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AdminController } from './admin.controller';
 
 @Module({
-  imports: [TerminusModule, HttpModule, SharedModule],
+  imports: [TerminusModule, JwtModule, HttpModule, SharedModule],
   controllers: [
     HealthController,
     AdminController,
