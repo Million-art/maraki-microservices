@@ -6,14 +6,10 @@ import { Transport } from '@nestjs/microservices';
 async function bootstrap() {
   const PORT = process.env.PORT;
   const app = await NestFactory.create(AppModule);
-
   app.connectMicroservice({
     transport: Transport.NATS,
     options: { servers: ['nats://localhost:4222'], queue: 'auth_queue' },
   });
-
-  // Global prefix
-  app.setGlobalPrefix('api');
 
   // Validation pipe
   app.useGlobalPipes(
@@ -23,12 +19,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-
-  // Versioning (URI)
-  app.enableVersioning({
-    type: VersioningType.URI,
-    defaultVersion: '1',
-  });
 
   await app.startAllMicroservices();
   await app.listen(PORT ?? 3000);

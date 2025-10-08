@@ -1,4 +1,3 @@
-
 services:
   admin-service:
     build: ./admin-service
@@ -9,6 +8,9 @@ services:
     command: npm run start:dev
     environment:
       - PORT=3000
+
+    networks:
+      - maraki-net
   auth-microservice:
     build: ./auth-service
     ports:
@@ -19,6 +21,8 @@ services:
     environment:
       - PORT=3001
 
+    networks:
+      - maraki-net
   mini-app-service:
     build: ./mini-app-service
     ports:
@@ -28,9 +32,33 @@ services:
     command: npm run start:dev
     environment:
       - PORT=3002
+
+    networks:
+      - maraki-net
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - 3003:3003
+    volumes:
+      - ./api-gateway/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3003
+    depends_on:
+      - admin-service
+      - auth-microservice
+      - mini-app-service
+      - nats
+    networks:
+      - maraki-net
   nats:
     image: nats:latest
     command: -js
     ports:
       - 4222:4222
       - 8222:8222
+    networks:
+      - maraki-net
+  networks:
+    maraki-net:
+      driver: bridge

@@ -32,6 +32,16 @@
       "compilerOptions": {
         "tsConfigPath": "microservices/mini-app-service/tsconfig.json"
       }
+    },
+    "api-gateway": {
+      "type": "application",
+      "root": "microservices/api-gateway",
+      "entryFile": "main",
+      "sourceRoot": "microservices/api-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "microservices/api-gateway/tsconfig.json"
+      }
     }
+    
   }
 }

@@ -22,6 +22,7 @@ export class UserRegistrationUseCase {
         const newUser = new UserEntity(
           request.id as string,
           request.email,
+          request.role
         );
         user = await this.userRepository.save(newUser);
         this.loggerService.log(`Created user in auth-service: ${request.email}`, 'UserRegistrationUseCase');
