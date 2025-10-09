@@ -11,7 +11,6 @@ import { SharedModule } from './shared/shared.module';
 import { AllExceptionsFilter } from './shared/exceptions/all.exception';
 import { LoggerService } from './shared/logs/logger.service';
 import { ProxyModule } from './modules/proxy.module';
-import { ControllersModule } from './controllers/controllers.module';
 import { HealthController } from './controllers/health.controller';
 import { AdminController } from './controllers/admin.controller';
 import { AuthController } from './controllers/auth.controller';

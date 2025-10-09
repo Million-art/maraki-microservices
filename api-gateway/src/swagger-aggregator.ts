@@ -16,7 +16,7 @@ export async function getAggregatedSwagger(httpService: HttpService, config: Con
   const aggregated = {
     openapi: '3.0.0',
     info: {
-      title: 'Maraki API Gateway - Aggregated',
+      title: 'Maraki API Documentation',
       version: '1.0.0',
     },
     paths: {},
