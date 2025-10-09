@@ -8,12 +8,14 @@ import { SwaggerController } from './swagger.controller';
 import { HttpModule } from '@nestjs/axios';
 import { SharedModule } from '../shared/shared.module';
 import { AdminController } from './admin.controller';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [TerminusModule, JwtModule, HttpModule, SharedModule],
   controllers: [
     HealthController,
     AdminController,
+    AuthController,
     MiniAppController,
     PrometheusController,
     SwaggerController,

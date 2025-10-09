@@ -1,9 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SwaggerModule } from '@nestjs/swagger';
+import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
 import { Request, Response } from 'express';
+import { getAggregatedSwagger } from './swagger-aggregator';
  
 async function bootstrap() {
  
@@ -19,14 +22,9 @@ async function bootstrap() {
     credentials: true
   })
   // Swagger setup
-  const config = new DocumentBuilder()
-    .setTitle('Maraki API Gateway')
-    .setDescription('')
-    .setVersion('1.0')
-    .addTag('mini-app', 'Mini-app endpoints')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const httpService = app.get(HttpService);
+  const configService = app.get(ConfigService);
+  const document = await getAggregatedSwagger(httpService, configService);
   SwaggerModule.setup('docs', app, document);
 
   // Global prefix

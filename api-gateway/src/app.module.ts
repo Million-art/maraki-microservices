@@ -6,11 +6,18 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-store';
+import { HttpModule } from '@nestjs/axios';
 import { SharedModule } from './shared/shared.module';
 import { AllExceptionsFilter } from './shared/exceptions/all.exception';
 import { LoggerService } from './shared/logs/logger.service';
 import { ProxyModule } from './modules/proxy.module';
 import { ControllersModule } from './controllers/controllers.module';
+import { HealthController } from './controllers/health.controller';
+import { AdminController } from './controllers/admin.controller';
+import { AuthController } from './controllers/auth.controller';
+import { MiniAppController } from './controllers/mini-app.controller';
+import { PrometheusController } from './controllers/prometheus.controller';
+import { SwaggerController } from './controllers/swagger.controller';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
@@ -41,9 +48,9 @@ import { JwtModule } from '@nestjs/jwt';
         port: 6379,
       }),
     }),
+    HttpModule,
     SharedModule,
     ProxyModule,
-    ControllersModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: {expiresIn: '1d'}
@@ -60,6 +67,13 @@ import { JwtModule } from '@nestjs/jwt';
     },
     LoggerService,
   ],
-  controllers: [],
+  controllers: [
+    HealthController,
+    AdminController,
+    AuthController,
+    MiniAppController,
+    PrometheusController,
+    SwaggerController,
+  ],
 })
 export class AppModule {}

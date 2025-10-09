@@ -7,7 +7,7 @@ import { LoggerService } from '../shared/logs/logger.service';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
 
-@Controller('v1/mini-app')
+@Controller('mini-app')
 @ApiTags('mini-app')
 export class MiniAppController {
   constructor(
@@ -16,25 +16,31 @@ export class MiniAppController {
     private readonly logger: LoggerService,
   ) {}
 
-  @All()
+  @All('*')
   async proxy(@Req() req: Request, @Res() res: Response) {
     const miniAppServiceUrl = this.configService.get<string>('MINI_APP_SERVICE_URL');
-    const targetUrl = `${miniAppServiceUrl}${req.url.replace('/v1', '')}`;
+    const targetUrl = `${miniAppServiceUrl}${req.url.replace('/api/v1/mini-app', '/mini-app')}`;
 
     try {
+    const { headers: incomingHeaders } = req;
+    const { host, connection, 'content-length': contentLength, 'accept-encoding': acceptEncoding, ...safeHeaders } = incomingHeaders as any;
     const response: AxiosResponse = await firstValueFrom(
       this.httpService.request({
         method: req.method as any,
         url: targetUrl,
         data: req.body,
-        headers: req.headers,
+        headers: safeHeaders,
+        validateStatus: () => true,
       }),
     );
 
     res.status(response.status).send(response.data);
   } catch (error: any) {
     this.logger.error('Proxy error', error.message);
-    throw new BadGatewayException(error.response?.data || 'Proxy error');
+    if (error.response) {
+      return res.status(error.response.status).send(error.response.data);
+    }
+    throw new BadGatewayException('Proxy error');
   }
   }
 }
