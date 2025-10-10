@@ -11,12 +11,12 @@ import { SharedModule } from './shared/shared.module';
 import { AllExceptionsFilter } from './shared/exceptions/all.exception';
 import { LoggerService } from './shared/logs/logger.service';
 import { ProxyModule } from './modules/proxy.module';
-import { HealthController } from './controllers/health.controller';
 import { AdminController } from './controllers/admin.controller';
 import { AuthController } from './controllers/auth.controller';
 import { MiniAppController } from './controllers/mini-app.controller';
 import { PrometheusController } from './controllers/prometheus.controller';
 import { SwaggerController } from './controllers/swagger.controller';
+import { HealthController } from './controllers/health.controller';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
@@ -68,11 +68,11 @@ import { JwtModule } from '@nestjs/jwt';
   ],
   controllers: [
     HealthController,
+    SwaggerController,
     AdminController,
     AuthController,
     MiniAppController,
     PrometheusController,
-    SwaggerController,
   ],
 })
 export class AppModule {}

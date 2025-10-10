@@ -21,6 +21,11 @@ export async function getAggregatedSwagger(httpService: HttpService, config: Con
     },
     paths: {},
     components: { schemas: {} },
+    tags: [
+      { name: 'admin', description: 'Admin service endpoints' },
+      { name: 'auth', description: 'Authentication service endpoints' },
+      { name: 'mini-app', description: 'Mini App service endpoints' },
+    ],
   };
 
   for (const service of services) {

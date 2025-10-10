@@ -8,6 +8,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateUserUseCase } from '../../application/use-cases/create-user.usecase';
 import { GetAllUsersUseCase } from '../../application/use-cases/get-all-users-usecase';
 import { GetUserUseCase } from '../../application/use-cases/get-user-usecase';
@@ -18,6 +19,7 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserMapper } from '../dto/mappers/user.mapper';
 import { UserResponseDto } from '../dto/user-response.dto';
 
+@ApiTags('admin')
 @Controller('users')
 export class UserController {
   constructor(

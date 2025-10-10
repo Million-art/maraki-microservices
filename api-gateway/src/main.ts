@@ -5,7 +5,6 @@ import { SwaggerModule } from '@nestjs/swagger';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
-import { Request, Response } from 'express';
 import { getAggregatedSwagger } from './swagger-aggregator';
  
 async function bootstrap() {
@@ -28,15 +27,7 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   // Global prefix
-  app.setGlobalPrefix('api', { exclude: ['/', '/docs'] });
-
-  // Root response middleware
-  app.use((req:Request, res:Response, next:any) => {
-    if (req.path === '/' && req.method === 'GET') {
-      return res.send('Welcome to API Gateway');
-    }
-    next();
-  });
+  app.setGlobalPrefix('api', { exclude: ['/', '/health', '/test', '/docs'] });
 
   // Validation pipe
   app.useGlobalPipes(
@@ -47,11 +38,11 @@ async function bootstrap() {
     }),
   );
 
-  // Versioning (URI)
-  app.enableVersioning({
-    type: VersioningType.URI,
-    defaultVersion: '1', // default version if not specified
-  });
+  // Versioning (URI) - temporarily disabled for testing
+  // app.enableVersioning({
+  //   type: VersioningType.URI,
+  //   defaultVersion: '1', // default version if not specified
+  // });
 
   await app.listen(PORT);
   console.log(` API Gateway running on http://localhost:${PORT}`);

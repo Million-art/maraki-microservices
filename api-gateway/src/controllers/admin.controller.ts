@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { All, BadGatewayException, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ApiOperation, ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import {  ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { LoggerService } from '../shared/logs/logger.service';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom, timeout, retry, catchError, throwError } from 'rxjs';

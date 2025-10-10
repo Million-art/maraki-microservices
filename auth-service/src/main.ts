@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { Transport } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Request, Response } from 'express';
 
 async function bootstrap() {
   const PORT = process.env.PORT;
@@ -30,6 +31,26 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
+
+  // Root response middleware
+  app.use((req: Request, res: Response, next: any) => {
+    if (req.path === '/' && req.method === 'GET') {
+      return res.json({ message: 'Welcome to the Auth Service API' });
+    }
+    next();
+  });
+
+  // Health check middleware
+  app.use((req: Request, res: Response, next: any) => {
+    if (req.path === '/health' && req.method === 'GET') {
+      return res.json({ 
+        status: 'ok', 
+        service: 'auth-service',
+        timestamp: new Date().toISOString()
+      });
+    }
+    next();
+  });
 
   await app.startAllMicroservices();
   await app.listen(PORT ?? 3000);
