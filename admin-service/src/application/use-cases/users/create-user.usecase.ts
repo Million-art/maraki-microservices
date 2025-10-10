@@ -1,10 +1,10 @@
 import { Injectable, ConflictException, Inject } from '@nestjs/common';
-import { UserEntity } from '../../domain/entities/user.entity';
-import { UserRepository } from '../../domain/ports/user.repository';
+import { UserEntity } from '../../../domain/entities/user.entity';
+import { UserRepository } from '../../../domain/ports/user.repository';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { CreateUserRequest } from '../interfaces/create-user.interface';
-import { LoggerService } from '../../shared/logs/logger.service';
+import { CreateUserRequest } from '../../interfaces/create-user.interface';
+import { LoggerService } from '../../../shared/logs/logger.service';
  
 @Injectable()
 export class CreateUserUseCase {

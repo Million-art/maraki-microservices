@@ -9,11 +9,11 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateUserUseCase } from '../../application/use-cases/create-user.usecase';
-import { GetAllUsersUseCase } from '../../application/use-cases/get-all-users-usecase';
-import { GetUserUseCase } from '../../application/use-cases/get-user-usecase';
-import { UpdateUserUseCase } from '../../application/use-cases/update-user-usecase';
-import { DeleteUserUseCase } from '../../application/use-cases/delete-user.usecase';
+import { CreateUserUseCase } from '../../application/use-cases/users/create-user.usecase';
+import { GetAllUsersUseCase } from '../../application/use-cases/users/get-all-users-usecase';
+import { GetUserUseCase } from '../../application/use-cases/users/get-user-usecase';
+import { UpdateUserUseCase } from '../../application/use-cases/users/update-user-usecase';
+import { DeleteUserUseCase } from '../../application/use-cases/users/delete-user.usecase';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { UserMapper } from '../dto/mappers/user.mapper';

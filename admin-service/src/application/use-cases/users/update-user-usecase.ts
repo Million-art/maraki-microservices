@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UserEntity } from '../../domain/entities/user.entity';
-import { UserRepository } from '../../domain/ports/user.repository';
-import { UpdateUserRequest } from '../interfaces/update-user.interface';
+import { UserEntity } from '../../../domain/entities/user.entity';
+import { UserRepository } from '../../../domain/ports/user.repository';
+import { UpdateUserRequest } from '../../interfaces/update-user.interface';
 
 @Injectable()
 export class UpdateUserUseCase {

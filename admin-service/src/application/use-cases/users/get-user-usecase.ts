@@ -1,7 +1,7 @@
 // src/application/use-cases/get-user.usecase.ts
 import { Injectable } from '@nestjs/common';
-import { UserEntity } from '../../domain/entities/user.entity';
-import { UserRepository } from '../../domain/ports/user.repository';
+import { UserEntity } from '../../../domain/entities/user.entity';
+import { UserRepository } from '../../../domain/ports/user.repository';
 
 @Injectable()
 export class GetUserUseCase {
