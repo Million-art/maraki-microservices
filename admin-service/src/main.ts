@@ -26,9 +26,9 @@ async function bootstrap() {
   // Swagger setup
   const config = new DocumentBuilder()
     .setTitle('Admin Service API')
-    .setDescription('API documentation for the Admin Service')
+    .setDescription('API documentation for the Admin Service - User and Quiz Management')
     .setVersion('1.0')
-    .addTag('admin')
+    .addTag('admin', 'Admin operations for users and quizzes')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

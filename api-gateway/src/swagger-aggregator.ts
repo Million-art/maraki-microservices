@@ -10,6 +10,7 @@ export async function getAggregatedSwagger(httpService: HttpService, config: Con
   const services = [
     { name: 'auth', url: `${authUrl}/docs-json`, prefixReplace: /^\/auth/, prefixWith: '/api/v1/auth' },
     { name: 'admin', url: `${adminUrl}/docs-json`, prefixReplace: /^\/users/, prefixWith: '/api/v1/admin/users' },
+    { name: 'admin-quizzes', url: `${adminUrl}/docs-json`, prefixReplace: /^\/quizzes/, prefixWith: '/api/v1/admin/quizzes' },
     { name: 'mini-app', url: `${miniAppUrl}/docs-json`, prefixReplace: /^\/mini-app/, prefixWith: '/api/v1/mini-app' },
   ];
 
@@ -41,6 +42,15 @@ export async function getAggregatedSwagger(httpService: HttpService, config: Con
         } else {
           newPath = `/api${path}`;
         }
+        
+        // Skip if path doesn't match the expected pattern for this service
+        if (service.name === 'admin' && !path.startsWith('/users')) {
+          continue;
+        }
+        if (service.name === 'admin-quizzes' && !path.startsWith('/quizzes')) {
+          continue;
+        }
+        
         aggregated.paths[newPath] = methods;
       }
 

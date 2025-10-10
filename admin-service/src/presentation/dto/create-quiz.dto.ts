@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsBoolean, IsArray, IsOptional, IsEnum, ValidateNested, Min, Max } from 'class-validator';
+import { IsString, IsNumber, IsBoolean, IsArray, IsOptional, IsEnum, ValidateNested, Min, Max, IsNotEmpty } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { QuestionType, Difficulty } from '../../domain/interfaces/enums';
@@ -23,6 +23,7 @@ export class QuestionDto {
   options?: string[];
 
   @ApiProperty({ description: 'Correct answer' })
+  @IsNotEmpty()
   correctAnswer: string | number;
 
   @ApiProperty({ description: 'Points for this question' })
