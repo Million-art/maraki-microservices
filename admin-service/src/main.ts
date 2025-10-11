@@ -14,6 +14,11 @@ async function bootstrap() {
     options: { servers: ['nats://localhost:4222'], queue: 'admin_queue' },
   });
 
+  app.connectMicroservice({
+    transport: Transport.NATS,
+    options: {servers: ['nats://localhost:4222'], queue: 'quiz_queue'}  
+  })
+
   // Validation pipe
   app.useGlobalPipes(
     new ValidationPipe({

@@ -9,7 +9,7 @@ import type { Request, Response } from 'express';
 import { JwtGuard } from '../shared/guards/jwt.guard';
 
 @UseGuards(JwtGuard)
-@Controller('admin')
+@Controller('v1/admin')
 @ApiTags('Admin')
 @ApiBearerAuth()
 export class AdminController {
@@ -21,7 +21,7 @@ export class AdminController {
 
   private async proxyRequest(req: Request, res: Response) {
     const adminServiceUrl = this.configService.get<string>('ADMIN_SERVICE_URL');
-    const targetUrl = `${adminServiceUrl}${req.url.replace('/api/v1/admin', '/users')}`;
+    const targetUrl = `${adminServiceUrl}${req.url.replace('/api/v1/admin', '')}`;
     const start = Date.now();
 
     try {
